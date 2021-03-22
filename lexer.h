@@ -16,6 +16,10 @@ string cadena;
 vector<token*> lista_tokens;
 bool isCadenaOver = false;
 
+void set_cadena(const string cadena_nueva){
+    cadena = cadena_nueva;
+}
+
 //general functions
 char nextChar(const int step = 1){
     static int index = 0;
@@ -120,7 +124,7 @@ void caseC(string &cadena_acumulada){
     
 }
 
-void lexer(){
+vector<token*> lexer(){
     string cadena_acumulada = "";
     while(isCadenaOver == false){
         char next_char = nextChar();
@@ -163,4 +167,6 @@ void lexer(){
         cout<<" ; ";
     }
     cout<<"}";
+    return lista_tokens;
 }
+

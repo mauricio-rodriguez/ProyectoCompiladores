@@ -1,27 +1,19 @@
 #include "lexer.h"
 
-vector<token*> get_lista_tokens(){
-    return lista_tokens;
-}
+using namespace std;
 
-bool next_nonTerminal = true;
-
-auto lista_token = get_lista_tokens();
-
-auto token_inicial = lista_tokens[0];
-
-bool isTokensOver = false;
-
+bool isTokensOver = true;
 bool EstadoAceptacion = true;
 
+vector<token*> lista_de_tokens;
 typedef vector<string> lista;
 
 token* next_Token(const int step = 1){
     static int index = 0;
-    if (index == lista_token.size()) isTokensOver = true;
+    if (index == lista_de_tokens.size()) isTokensOver = true;
     else{
-        if (step ==1) return lista_tokens[++index];
-        else if (step == -1) return lista_tokens[--index]; 
+        if (step ==1) return lista_de_tokens[++index];
+        else if (step == -1) return lista_de_tokens[--index]; 
     }
 }
 
@@ -120,7 +112,11 @@ lista RuleC3_C4(){
 }
 
 
-void parser(){
+void parser(vector<token*> lista_Tokens){
+    lista_de_tokens = lista_Tokens;
+    auto token_inicial = lista_de_tokens[0];
+
+    cout<<"Me ejecuto owo \n" << endl;
     if(token_inicial->name != "A"){
         cout<<"Cadena No aceptada";
         EstadoAceptacion = false;

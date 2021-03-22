@@ -1,6 +1,7 @@
-#include "lexer.h"
+#include "parser.h"
 
-void fabricatextil(string cade){
+void fabricaTextil(string cade){
     cadena = cade;
-    lexer();
+    auto tokens = lexer();
+    parser(tokens);
 }
