@@ -126,22 +126,17 @@ void parser(){
         EstadoAceptacion = false;
     }
     else{
+        auto token_siguiente = token_inicial->name; //ASh1
         while(EstadoAceptacion==true){
-            auto token_siguiente = next_Token()->name;
             if(token_siguiente == "A"){
-                cout<<"Cadena No aceptada";
-                EstadoAceptacion = false;
+                auto  token_siguiente = next_Token()->name;
+                auto procesando = is_Correct_Next(Rule_A(),token_siguiente);
+                EstadoAceptacion = procesando ? true : false;
             }
             else if(token_siguiente == "Sh1"){
-                auto procesando = is_Correct_Next(Rule_Sh1_Sh3(),next_Token()->name);
+                auto  token_siguiente = next_Token()->name;
+                auto procesando = is_Correct_Next(Rule_Sh1_Sh3(),token_siguiente);
                 EstadoAceptacion = procesando ? true : false;
-                /*if(procesando){
-                    continue;
-                }
-                else{
-                    EstadoAceptacion=false;
-                }*/
-                next_Token(-1);
             }
             else if(token_siguiente == "Sh2"){
                 auto procesando = is_Correct_Next(Rule_Sh2(),next_Token()->name);
