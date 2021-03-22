@@ -8,20 +8,18 @@ struct non_Terminal{
     int numero;
 };
 */
-
-//global variables
-string cadena;
-vector<token*>* lista_tokens;
-bool isCadenaOver = false;
-
 //token definition
 struct token{
     string name;
     string accion;
     void printToken(){
-        cout << '<' << name << '>,<' << accion << '>' << endl;
+        cout << '<' << name << ">,<" << accion << '>' << endl;
     }
 };
+//global variables
+string cadena;
+vector<token*> lista_tokens;
+bool isCadenaOver = false;
 
 //general functions
 char nextChar(const int step = 1){
@@ -34,7 +32,7 @@ char nextChar(const int step = 1){
 }
 
 void add_listatokens(token *Token){
-    lista_tokens->push_back(Token);
+    lista_tokens.push_back(Token);
 }
 
 void checkDigit(const int upper_bound,const int lower_bound,const string action, char character, token *&Token, string &cadena_acumulada){
@@ -81,23 +79,29 @@ void caseA(string &cadena_acumulada){
 void caseS(string &cadena_acumulada){
     cadena_acumulada+='S';
     char next_char = nextChar();
-    switch (next_char){
-        token *token;
-        case 'h':
-            cadena_acumulada+=next_char;
-            next_char = nextChar();
-            checkDigit(6,0,"Tejido Horizontal",next_char,token,cadena_acumulada);
-            break;
-        case 'v': 
-            cadena_acumulada+=next_char;
-            next_char = nextChar();
-            checkDigit(6,0,"Tejido Vertical",next_char,token,cadena_acumulada);
-            break;
-        default:
-            //error
-
+    switch(next_char){
+    token *Token;
+    case 'h':
+        cadena_acumulada+=next_char;
+        next_char = nextChar();
+        checkDigit(6,0,"Tejido Horizontal",next_char,Token,cadena_acumulada);
+    case 'v': 
+        cadena_acumulada+=next_char;
+        next_char = nextChar();
+        checkDigit(6,0,"Tejido Vertical",next_char,Token,cadena_acumulada);
+    default:
+        char next_char2 = nextChar();
+        while(!(next_char2 == 'A' or next_char2 == 'C' or next_char2 == 'S' or next_char2 == 'N')) 
+            cadena_acumulada+= next_char2;
+        token* NoAceptado;
+        NoAceptado->name = cadena_acumulada;
+        NoAceptado->accion = "Error";
+        add_listatokens(NoAceptado);
+        cadena_acumulada = " ";
+        nextChar(-1);
     }
 }
+
 
 void caseN(string &cadena_acumulada){
     cadena_acumulada+= 'N';
@@ -117,7 +121,7 @@ void lexer(){
     string cadena_acumulada = " ";
     while(isCadenaOver == false){
         char next_char = nextChar();
-        switch (next_char){
+        switch(next_char){
         case 'A':
             caseA(cadena_acumulada);
         case 'S':
