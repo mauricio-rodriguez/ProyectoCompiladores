@@ -1,6 +1,6 @@
 #include "fabricaTextil.h"
 
 int main(){
-    fabricaTextil("Sh2C4SH3AAAAA");
-    //fabricatextil("ACb521sdC2Ac2xxxxCzC3");
+    fabricaTextil("SCCC4sh3AC2AC1AAA");
+    //fabricaTextil("ACb521sdC2Ac2xxxxCzC3");
 }
