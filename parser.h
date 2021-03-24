@@ -161,6 +161,7 @@ void parser(vector<token*> lista_Tokens){
     auto token_inicial = lista_de_tokens[0];
     if(token_inicial->name != "A"){
         estadoAceptacion = false;
+        cout<<"\n Error, todos los procesos empiezan desde el almacen A";
     }
     else{
         auto token_siguiente = token_inicial->name;
