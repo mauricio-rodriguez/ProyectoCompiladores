@@ -19,7 +19,9 @@ token* next_Token(const int step = 1){
 
 bool is_Correct_Next(vector<string> lista_tokens_siguientes,string current_token){
     for(auto i = 0 ; i < lista_tokens_siguientes.size() ; i++){
+        cout<<endl<<lista_tokens_siguientes[i]<<endl;
         if(current_token == lista_tokens_siguientes[i]){
+            cout<<endl<<"encontrado"<<endl;
             return true;
         }
     }
@@ -101,7 +103,7 @@ lista Rule_C1(){
     return siguiente;
 }
 
-lista RuleC2(){
+lista Rule_C2(){
     lista siguiente = {"C4"};
     return siguiente;
 }
@@ -115,100 +117,165 @@ lista RuleC3_C4(){
 void parser(vector<token*> lista_Tokens){
     lista_de_tokens = lista_Tokens;
     auto token_inicial = lista_de_tokens[0];
-
-    cout<<"Me ejecuto owo \n" << endl;
+    cout<<"\nEjecutando Parser . .  . \n" << endl;
     if(token_inicial->name != "A"){
         cout<<"Cadena No aceptada";
         EstadoAceptacion = false;
     }
     else{
-        auto token_siguiente = token_inicial->name; //ASh1
+        auto token_siguiente = token_inicial->name;
+        cout<<"\nMe empiezo a ejecutar \n" << endl;
         while(EstadoAceptacion==true){
+            cout<<"\nSoy "<<token_siguiente<< endl;
             if(token_siguiente == "A"){
-                auto  token_siguiente = next_Token()->name;
-                auto procesando = is_Correct_Next(Rule_A(),token_siguiente);
+                auto  token_siguiente_temp = next_Token()->name;
+                auto procesando = is_Correct_Next(Rule_A(),token_siguiente_temp);
                 EstadoAceptacion = procesando ? true : false;
+                token_siguiente = token_siguiente_temp;
             }
             else if(token_siguiente == "Sh1"){
-                auto  token_siguiente = next_Token()->name;
-                auto procesando = is_Correct_Next(Rule_Sh1_Sh3(),token_siguiente);
+                auto  token_siguiente_temp = next_Token()->name;
+                auto procesando = is_Correct_Next(Rule_Sh1_Sh3(),token_siguiente_temp);
                 EstadoAceptacion = procesando ? true : false;
+                token_siguiente = token_siguiente_temp;
             }
             else if(token_siguiente == "Sh2"){
+                auto  token_siguiente_temp = next_Token()->name;                
                 auto procesando = is_Correct_Next(Rule_Sh2(),next_Token()->name);
                 EstadoAceptacion = procesando ? true : false;
-                next_Token(-1);
             }
             else if(token_siguiente == "Sh3"){
+                auto  token_siguiente_temp = next_Token()->name;
                 auto procesando = is_Correct_Next(Rule_Sh1_Sh3(),next_Token()->name);
                 EstadoAceptacion = procesando ? true : false;
-                next_Token(-1);
             }
             else if(token_siguiente == "Sh4"){
+                auto  token_siguiente_temp = next_Token()->name;
                 auto procesando = is_Correct_Next(Rule_Sh4(),next_Token()->name);
                 EstadoAceptacion = procesando ? true : false;
-                next_Token(-1);
+                token_siguiente = token_siguiente_temp;
             }
             else if(token_siguiente == "Sh5"){
+                auto  token_siguiente_temp = next_Token()->name;
                 auto procesando = is_Correct_Next(Rule_Sh5(),next_Token()->name);
                 EstadoAceptacion = procesando ? true : false;
-                next_Token(-1);
+                token_siguiente = token_siguiente_temp;
             }
             else if(token_siguiente == "Sv1"){
-                
+                auto  token_siguiente_temp = next_Token()->name;
+                auto procesando = is_Correct_Next(Rule_Sv1_Sv2(),next_Token()->name);
+                EstadoAceptacion = procesando ? true : false;
+                token_siguiente = token_siguiente_temp;
             }
             else if(token_siguiente == "Sv2"){
-                
+                auto  token_siguiente_temp = next_Token()->name;
+                auto procesando = is_Correct_Next(Rule_Sv1_Sv2(),next_Token()->name);
+                EstadoAceptacion = procesando ? true : false;
+                token_siguiente = token_siguiente_temp;
             }
             else if(token_siguiente == "Sv3"){
-                
+                auto  token_siguiente_temp = next_Token()->name;
+                auto procesando = is_Correct_Next(Rule_Sv3_Sv4(),next_Token()->name);
+                EstadoAceptacion = procesando ? true : false;
+                if(EstadoAceptacion == false){
+                    cout<<endl<<"nope "<<token_siguiente_temp<<endl;
+                }
+                token_siguiente = token_siguiente_temp; 
             }
             else if(token_siguiente == "Sv4"){
-                
+                auto  token_siguiente_temp = next_Token()->name;
+                auto procesando = is_Correct_Next(Rule_Sv3_Sv4(),next_Token()->name);
+                EstadoAceptacion = procesando ? true : false;
+                token_siguiente = token_siguiente_temp;
             }
             else if(token_siguiente == "Sv5"){
-                
+                auto  token_siguiente_temp = next_Token()->name;
+                auto procesando = is_Correct_Next(Rule_Sv5(),next_Token()->name);
+                EstadoAceptacion = procesando ? true : false;
+                token_siguiente = token_siguiente_temp;
             }
             else if(token_siguiente == "N1"){
-                
+                auto  token_siguiente_temp = next_Token()->name;
+                auto procesando = is_Correct_Next(Rule_N1(),next_Token()->name);
+                EstadoAceptacion = procesando ? true : false;
+                token_siguiente = token_siguiente_temp;
             }
             else if(token_siguiente == "N2"){
-                
+                auto  token_siguiente_temp = next_Token()->name;
+                auto procesando = is_Correct_Next(Rule_N2(),next_Token()->name);
+                EstadoAceptacion = procesando ? true : false;
+                token_siguiente = token_siguiente_temp;
             }
             else if(token_siguiente == "N3"){
-                
+                auto  token_siguiente_temp = next_Token()->name;
+                auto procesando = is_Correct_Next(Rule_N3_N4(),next_Token()->name);
+                EstadoAceptacion = procesando ? true : false;
+                token_siguiente = token_siguiente_temp;
             }
             else if(token_siguiente == "N4"){
-                
+                auto  token_siguiente_temp = next_Token()->name;
+                auto procesando = is_Correct_Next(Rule_N3_N4(),next_Token()->name);
+                EstadoAceptacion = procesando ? true : false;
+                token_siguiente = token_siguiente_temp;
             }
             else if(token_siguiente == "N5"){
-                
+                auto  token_siguiente_temp = next_Token()->name;
+                auto procesando = is_Correct_Next(Rule_N5(),next_Token()->name);
+                EstadoAceptacion = procesando ? true : false;
+                token_siguiente = token_siguiente_temp;
             }
             else if(token_siguiente == "Ac1"){
-                
+                auto  token_siguiente_temp = next_Token()->name;
+                auto procesando = is_Correct_Next(Rule_Ac1_Ac2_Ac3(),next_Token()->name);
+                EstadoAceptacion = procesando ? true : false;
+                token_siguiente = token_siguiente_temp;
             }
             else if(token_siguiente == "Ac2"){
-                
+                auto  token_siguiente_temp = next_Token()->name;
+                auto procesando = is_Correct_Next(Rule_Ac1_Ac2_Ac3(),next_Token()->name);
+                EstadoAceptacion = procesando ? true : false;
+                token_siguiente = token_siguiente_temp;
             }
             else if(token_siguiente == "Ac3"){
-                
+                auto  token_siguiente_temp = next_Token()->name;
+                auto procesando = is_Correct_Next(Rule_Ac1_Ac2_Ac3(),next_Token()->name);
+                EstadoAceptacion = procesando ? true : false;
+                token_siguiente = token_siguiente_temp;
             }
             else if(token_siguiente == "Ac4"){
-                
+                auto  token_siguiente_temp = next_Token()->name;
+                auto procesando = is_Correct_Next(Rule_Ac4(),next_Token()->name);
+                EstadoAceptacion = procesando ? true : false;
+                token_siguiente = token_siguiente_temp;
             }
             else if(token_siguiente == "C1"){
-                
+                auto  token_siguiente_temp = next_Token()->name;
+                auto procesando = is_Correct_Next(Rule_C1(),next_Token()->name);
+                EstadoAceptacion = procesando ? true : false;
+                token_siguiente = token_siguiente_temp;
             }
             else if(token_siguiente == "C2"){
-                
+                auto  token_siguiente_temp = next_Token()->name;
+                auto procesando = is_Correct_Next(Rule_C2(),next_Token()->name);
+                EstadoAceptacion = procesando ? true : false;
+                token_siguiente = token_siguiente_temp;
             }
             else if(token_siguiente == "C3"){
-                
+                auto  token_siguiente_temp = next_Token()->name;
+                auto procesando = is_Correct_Next(RuleC3_C4(),next_Token()->name);
+                EstadoAceptacion = procesando ? true : false;
+                token_siguiente = token_siguiente_temp;
             }
             else if(token_siguiente == "C4"){
-                
+                auto  token_siguiente_temp = next_Token()->name;
+                auto procesando = is_Correct_Next(RuleC3_C4(),next_Token()->name);
+                EstadoAceptacion = procesando ? true : false;
+                token_siguiente = token_siguiente_temp;
             }
 
+        }
+        if(EstadoAceptacion==false){
+            cout<<endl<<"Lista de tokens No aceptada pes estupidez\n";
         }
     }
 }
