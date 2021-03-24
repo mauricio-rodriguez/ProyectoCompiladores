@@ -40,8 +40,7 @@ void checkDigit(const int upper_bound,const int lower_bound,const string action,
             Token->name = cadena_acumulada;
             int char_to_int = character-48;
             if (char_to_int<upper_bound && char_to_int>lower_bound) {
-                Token->accion = action; 
-                
+                Token->accion = action;       
             }
             else {
                 Token->accion = "Error";
@@ -94,7 +93,6 @@ void caseS(string &cadena_acumulada){
             checkDigit(6,0,"Tejido Vertical",next_char,Token,cadena_acumulada);
             break;
         default:
-            next_char = nextChar();
             while(!(next_char == 'A' or next_char == 'C' or next_char == 'S' or next_char == 'N' or isCadenaOver==true)){
                 cadena_acumulada+= next_char;
                 next_char =  nextChar();
