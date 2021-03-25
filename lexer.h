@@ -3,7 +3,6 @@
 #include <vector>
 using namespace std;
 
-//token definition
 struct token{
     string name;
     string accion;
@@ -11,7 +10,7 @@ struct token{
         std::cout<< "<" << name << "," << accion << '>';
     }
 };
-//global variables
+
 string cadena;
 vector<token*> lista_tokens;
 bool isCadenaOver = false;
@@ -20,13 +19,15 @@ void set_cadena(const string cadena_nueva){
     cadena = cadena_nueva;
 }
 
-//general functions
 char nextChar(const int step = 1){
     static int index = 0;
+    if (step == -1) {
+            if(isCadenaOver == true) isCadenaOver=false;
+            else return cadena[--index];
+    }
     if (index == cadena.length()) isCadenaOver = true;
     else{
         if (step ==1) return cadena[index++];
-        else if (step == -1) return cadena[--index]; 
     }
 }
 
@@ -115,14 +116,30 @@ void caseN(string &cadena_acumulada){
     cadena_acumulada+= 'N';
     auto next_char = nextChar();
     token *Token = new token();
-    checkDigit(6,0,"Tenhido",next_char,Token,cadena_acumulada);
+    if(isCadenaOver == false){
+        checkDigit(6,0,"Tenhido",next_char,Token,cadena_acumulada);
+    }
+    else{
+        Token->name = cadena_acumulada;
+        Token->accion = "Error";
+        add_listatokens(Token);
+        cadena_acumulada = "";
+    }
 }
 
 void caseC(string &cadena_acumulada){
     cadena_acumulada+= 'C';
     auto next_char = nextChar();
     token *Token = new token();
-    checkDigit(5,0,"Confeccion",next_char,Token,cadena_acumulada);
+     if(isCadenaOver == false){
+        checkDigit(5,0,"Confeccion",next_char,Token,cadena_acumulada);
+    }
+    else{
+        Token->name = cadena_acumulada;
+        Token->accion = "Error";
+        add_listatokens(Token);
+        cadena_acumulada = "";
+    }
 }
 
 vector<token*> lexer(){
@@ -149,24 +166,14 @@ vector<token*> lexer(){
             while(!(next_char == 'A' or next_char == 'C' or next_char == 'S' or next_char == 'N' or isCadenaOver==true)){
                 cadena_acumulada+= next_char;
                 next_char =  nextChar();
-            }/*
-            if(next_char==cadena[cadena.size()]){
-                token *NoAceptado = new token();
-                NoAceptado->name = cadena_acumulada;
-                NoAceptado->accion = "Error";
-                add_listatokens(NoAceptado);
-                cadena_acumulada = "";
-                break;
-            }*/
-    
-                nextChar(-1);
-                token *NoAceptado = new token();
-                NoAceptado->name = cadena_acumulada;
-                NoAceptado->accion = "Error";
-                add_listatokens(NoAceptado);
-                cadena_acumulada = "";
-                break;
-            
+            }
+            nextChar(-1);
+            token *NoAceptado = new token();
+            NoAceptado->name = cadena_acumulada;
+            NoAceptado->accion = "Error";
+            add_listatokens(NoAceptado);
+            cadena_acumulada = "";
+            break;
         }
     }
     cout<<"Lectura de : "<<cadena<<endl;
@@ -174,6 +181,9 @@ vector<token*> lexer(){
     for(int i = 0 ; i <  lista_tokens.size() ; i++){
         lista_tokens[i]->printToken();
         cout<<" ; ";
+        if((i+1)%2 == 0){
+            cout<<endl;
+        }
     }
     cout<<"}"<<endl;
     return lista_tokens;

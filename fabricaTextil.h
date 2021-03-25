@@ -5,12 +5,18 @@ string aMayuscula(string cadena) {
   return cadena;
 }
 
-vector<string> No_terminales = {"A","Sh1","Sh2","Sh3","Sh4","Sh5","Sv1","Sv2","Sv3","Sv4","Sv5","N1","N2","N3","N4","N5","Ac1","Ac2","Ac3","Ac4","C1","C2","C3","C4"};
+string No_terminales[24][2] = {{"A","Almacen"},
+{"Sh1","Tejido horizontal"},{"Sh2","Tejido horizontal"},{"Sh3","Tejido horizontal"},{"Sh4","Tejido horizontal"},{"Sh5","Tejido horizontal"},
+{"Sv1","Tejido vertical"},{"Sv2","Tejido vertical"},{"Sv3","Tejido vertical"},{"Sv4","Tejido vertical"},{"Sv5","Tejido vertical"},
+{"N1","Tenhido"},{"N2","Tenhido"},{"N3","Tenhido"},{"N4","Tenhido"},{"N5","Tenhido"},
+{"Ac1","Acabado"},{"Ac2","Acabado"},{"Ac3","Acabado"},{"Ac4","Acabado"},
+{"C1","confeccion"},{"C2","confeccion"},{"C3","confeccion"},{"C4","confeccion"}};
 
-bool In_No_terminales(string &no_terminal){
-    for(auto i = 0 ; i < No_terminales.size() ; i++){
-        if(no_terminal == aMayuscula(No_terminales[i])){
-            no_terminal = No_terminales[i];
+bool In_No_terminales(string &no_terminal,string &accion){
+    for(auto i = 0 ; i < 24 ; i++){
+        if(no_terminal == aMayuscula(No_terminales[i][0])){ 
+            no_terminal = No_terminales[i][0];
+            accion = No_terminales[i][1];
             return true;
         }
     }
@@ -20,16 +26,25 @@ bool In_No_terminales(string &no_terminal){
 void fabricaTextil(string cade){
     cadena = cade;
     auto tokens = lexer();
-
+    cout<<endl<<"Haciendo correciones"<<endl;
     for(auto i = tokens.begin() ; i != tokens.end(); i++){
         cout<<(*i)->name<<endl;
         if((*i)->accion == "Error"){
-            (*i)->name=aMayuscula((*i)->name);
-            if(In_No_terminales((*i)->name)==true){
+            (*i)->name=aMayuscula((*i)->name); 
+            if(In_No_terminales((*i)->name,(*i)->accion)==true){
                 cout<<"Corrigiendo el estado "<<(*i)->name<< " a un estado aceptable "<<endl;
             }
         }
     }
-
+    cout<<"\nCorrigiendo la cadena :  "<<cadena<<endl;
+    cout<<"{";
+    for(int i = 0 ; i <  tokens.size() ; i++){
+        tokens[i]->printToken();
+        cout<<" ; ";
+        if((i+1)%2 == 0){
+            cout<<endl;
+        }
+    }
+    cout<<"}"<<endl;
     parser(tokens);
 }
